@@ -1,0 +1,29 @@
+SUMMARY
+This is an automated build script for getting Electrum and Trezor installed on Debian Stretch and needed dependencies. This tries to build as much as possible from source code with source code integrity checking for higher security and trust.
+
+WHY THIS IS NEEDED
+I created this script because getting Electrum and Trezor to work together was a challenge and there is limited and conflicting information in multiple places. And getting the two to work together was a pain to figure out and what depedencies was needed. A standardized automated easy and trusted way is needed for building Electrum and Trezor from source.
+
+COMPATIBILITY
+This was built for and tested on Debian Stretch. This has not been tested yet on Debian Buster and some steps in the script might need to be modified or not needed for Buster.
+
+CONTRIBUTE
+If you have ideas on how this can be improved or create build scripts for other debian versions or linux distros please send a commit to this repo. Need to eventually update this to build the Trezor and pyqt5 components from source code.
+
+OTHER NOTES
+This currently has Electrum 3.3.6 bundled with it. If there is an update I will update this repo with new Electrum version.
+
+INSTRUCTIONS
+You will need the signing key for both Electrum and Python. Included in this are source code packages for Electrum and Python with attached signatures. I did not include the signing keys for Electrum and Python. For higher security and trust you will need to verify and obtain these two signing keys yourself.
+
+After you have the Electrum and Python signing keys go into the install-trezor-electrum directory and run the two setup scripts in order.
+setup-trezor-electrum-01.sh
+setup-trezor-electrum-02.sh
+
+After install you should be able to run Electrum using command "python3 run_electrum" in the Electrum-3.3.6 directory. To force electrum to use just one server of your choice you can add the flag --oneserver to the end of the command. Using --oneserver is better for privacy. Especially if you use a server you trust or run yourself. If you want to have Electrum prompt for a wallet to use you can add the command -w to the end of the command and choose name for new wallet or current wallet. For example "python3 run_electrum -w ~/.electrum/wallets/darkmarket-wallet"
+
+You can make an alias for these commands to launch electrum. Just add the below string to your ~/.bashrc or ~/.bash_aliases file.
+alias bitcoin-electrum="python3 ~/Electrum-3.3.6/run_electrum --oneserver"
+In this alias string this is assuming the Electrum-3.3.6 folder is in your home directory. If Electrum not in your home directory you should set it to proper path in the alias command.
+Now to run electrum you can use the command "bitcoin-electrum".
+You can add electrum flags to the end of this. For exmaple to choose wallet you would use command "bitcoin-electrum -w ~/.electrum/wallets/darkmarket-wallet" or "bitcoin-electrum -w ~/.electrum/wallets/new-wallet" to create a new wallet. If you specify a wallet that does not exist electrum will create a new wallet of that name.
